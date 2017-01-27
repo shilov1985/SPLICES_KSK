@@ -1,0 +1,783 @@
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.Writer;
+
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+
+public class Test {
+
+	static StringBuilder arrayTestPoints, builderORD;
+	static JTextField[] testFields;
+	static String[] array_ORD;
+	private static final String newLine = System.getProperty("line.separator");
+	static JFrame scanZSBFrame;
+	static JTextField ZSB_field, testFieldsA, valueXSizeTestField,
+			valueYSizeTestField;
+	static boolean isZSB_exist = false;
+	static String pathZSB_DIR;
+	static StringBuilder iniStrBuild;
+	static String pathToZSB;
+	static String pathToORDfile;
+	static JButton settingButton;
+	static int i = 0;
+	static JFrame setLayoutFrame, frame;
+	static OutputStream outputStream;
+	static String[] paramPosition;
+
+	// static instantionTestFields;
+
+	public static void Logic() {
+
+		scanZSBFrame = new JFrame("Please scan ZSB number!");
+		scanZSBFrame.setContentPane(new JLabel(new ImageIcon(
+				"C:\\MoKo\\SZB_Frame.png")));
+		scanZSBFrame.setVisible(true);
+
+		scanZSBFrame.setBounds(200, 200, 400, 200);
+
+		scanZSBFrame.setLocationRelativeTo(null);
+
+		scanZSBFrame.setDefaultCloseOperation(scanZSBFrame.EXIT_ON_CLOSE);
+
+		scanZSBFrame.setAlwaysOnTop(true);
+
+		ZSB_field = new JTextField();
+
+		ZSB_field.setVisible(true);
+		ZSB_field.setEditable(true);
+		scanZSBFrame.add(ZSB_field);
+		ZSB_field.setBounds(10, 80, 365, 70);
+		ZSB_field.setFont(new Font("SansSerif", Font.BOLD, 30));
+
+		ZSB_field.requestFocus();
+
+		FileReader readIni = null;
+		File iniMoKoFile = new File("C://MoKo//MoKo.ini");
+		try {
+			readIni = new FileReader(iniMoKoFile);
+		} catch (FileNotFoundException e) {
+			ZSB_field.setText("ini file not found in C:/MoKo/MoKo.ini");
+			ZSB_field.setFont(new Font("SansSerif", Font.BOLD, 15));
+		}
+
+		BufferedReader readIniBuffered = new BufferedReader(readIni);
+		String tmpIni;
+		iniStrBuild = new StringBuilder();
+		try {
+			while ((tmpIni = readIniBuffered.readLine()) != null) {
+				iniStrBuild.append(tmpIni);
+			}
+		} catch (IOException e) {
+			ZSB_field.setText("no lines found in C:/MoKo/MoKo.ini");
+			ZSB_field.setFont(new Font("SansSerif", Font.BOLD, 15));
+		}
+		int tmpStartStart = iniStrBuild.indexOf("<PATH_ORD_DIR>") + 14;
+		int tmpStartEnd = iniStrBuild.indexOf("</PATH_ORD_DIR>");
+
+		try {
+			pathToZSB = iniStrBuild.substring(tmpStartStart, tmpStartEnd);
+		} catch (Exception e) {
+			ZSB_field.setText("no lines found in C:/MoKo/MoKo.ini");
+			ZSB_field.setFont(new Font("SansSerif", Font.BOLD, 15));
+		}
+		// System.out.println(pathToZSB);
+		scanZSBFrame.getRootPane().getInputMap(
+				JComponent.WHEN_IN_FOCUSED_WINDOW
+
+		).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "clickButton");
+
+		scanZSBFrame.getRootPane().getActionMap().put("clickButton",
+				new AbstractAction() {
+
+					private static final long serialVersionUID = 1L;
+
+					private String[] listProgramsName;
+
+					public void actionPerformed(ActionEvent ae) {
+						// Fields for enter the program in administrator mode
+						// for makes a changes of layout.
+						// Checking for administrator password
+						// if(ZSB_field.getText().equalsIgnoreCase("administrator")){
+
+						if (true) {
+
+							scanZSBFrame.setVisible(false);
+							final long serialVersionUID = 1L;
+
+							// System.out.println(listProgramsName[0]);
+
+							if (true) {
+
+								scanZSBFrame.setVisible(false);
+
+								frame = new JFrame();
+
+								frame = new JFrame("MoKo");
+								frame.setLayout(null);
+								frame.setSize(1024, 768);
+								frame.setResizable(false);
+								frame.setLocationRelativeTo(null);
+								frame
+										.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+
+								frame.setContentPane(new JLabel(new ImageIcon(
+										"C:\\MoKo\\DSC_0224.JPG")));
+
+								frame.setVisible(true);
+
+								JLabel valueXSizeTestFieldLabel = new JLabel(
+										"X size");
+								valueXSizeTestFieldLabel.setVisible(true);
+								frame.add(valueXSizeTestFieldLabel);
+								valueXSizeTestFieldLabel.setBounds(22, 17, 50,
+										20);
+
+								valueXSizeTestField = new JTextField();
+								valueXSizeTestField.setVisible(true);
+								frame.add(valueXSizeTestField);
+								valueXSizeTestField.setBounds(20, 40, 50, 20);
+
+								JLabel valueYSizeTestFieldLabel = new JLabel(
+										"Y size");
+								valueYSizeTestFieldLabel.setVisible(true);
+								frame.add(valueYSizeTestFieldLabel);
+								valueYSizeTestFieldLabel.setBounds(22, 60, 50,
+										20);
+
+								valueYSizeTestField = new JTextField();
+								valueYSizeTestField.setVisible(true);
+								frame.add(valueYSizeTestField);
+								valueYSizeTestField.setBounds(20, 80, 50, 20);
+
+								File testPointsFile = new File(
+										"C://MoKo//POINTS_NUMBER.txt");
+
+								FileReader readtestPointsFile = null;
+								try {
+									readtestPointsFile = new FileReader(
+											testPointsFile);
+								} catch (FileNotFoundException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								BufferedReader bufReadtestPointsFile = new BufferedReader(
+										readtestPointsFile);
+
+								int counterLengthTestPointsFile = 0;
+								// Take's the length of POINTS_NUMBER file
+								// for initialization of
+								// String[] arrayTestPoints;
+
+								String tempLength;
+								try {
+									while ((tempLength = bufReadtestPointsFile
+											.readLine()) != null) {
+
+										counterLengthTestPointsFile++;
+									}
+								} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+
+								}
+
+								FileReader readtestPointsFileA = null;
+								try {
+									readtestPointsFileA = new FileReader(
+											testPointsFile);
+								} catch (FileNotFoundException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+
+								BufferedReader bufReadtestPointsFileA = new BufferedReader(
+										readtestPointsFileA);
+
+								int countTestPoints = 0;
+								String temp;
+
+								arrayTestPoints = new StringBuilder();
+								// testFields = new
+								// JTextField[counterLengthTestPointsFile];
+
+								int countForSubstringPos = 0;
+
+								// In this cycle is the basic program logic
+								// of this program.
+								testFields = new JTextField[counterLengthTestPointsFile];
+
+								try {
+									while ((temp = bufReadtestPointsFileA
+											.readLine()) != null) {
+										arrayTestPoints.append(temp);
+										countForSubstringPos++;
+
+										// System.out.println(countForSubstringPos);
+
+										String addNum = null;
+
+										if (countForSubstringPos < 10) {
+											addNum = "00";
+										} else {
+											if (countForSubstringPos < 100) {
+												addNum = "0";
+											} else {
+												addNum = "";
+											}
+										}
+
+										// System.out.println("<Point" +
+										// addNum + countForSubstringPos
+										// + ">");
+										int tempStartInt = arrayTestPoints
+												.indexOf("<Point" + addNum
+														+ countForSubstringPos
+														+ ">") + 10;
+
+										// System.out.println(tempStartInt);
+
+										int tempEndInt = arrayTestPoints
+												.indexOf("</Point" + addNum
+														+ countForSubstringPos
+														+ ">");
+
+										// System.out.println(tempEndInt);
+
+										String positionParam = arrayTestPoints
+												.substring(tempStartInt,
+														tempEndInt);
+										// System.out.println(positionParam
+										// );
+										paramPosition = positionParam
+												.split(",");
+
+										// //////////////////////preravqne
+										// na masiva na ORD file za
+										// vzemane
+										// ///////////////////// na
+										// stoinosti za inicializacia na
+										// cveta
+										// na poletata
+
+										// System.out.println(paramPosition[0]);
+
+										testFields[i] = new JTextField();
+										// declaration an instantion of
+										// JTextField array //////////////
+										final JTextField a = testFields[i];
+
+										frame.add(a);
+
+										a.setVisible(true);
+										a.setText(String.valueOf(i));
+										a.setBackground(Color.green);
+										a.setFont(new Font("SansSerif",
+												Font.BOLD, 7));
+										a.setEditable(false);
+
+										a
+												.setBounds(
+														Integer
+																.valueOf(paramPosition[0]),
+														Integer
+																.valueOf(paramPosition[1]),
+														Integer
+																.valueOf(paramPosition[2]),
+														Integer
+																.valueOf(paramPosition[3]));
+
+										// System.out.println(a.getY());
+										// System.out.println(a.getX());
+										a
+												.addMouseMotionListener(new MouseAdapter() {
+													public void mouseDragged(
+															MouseEvent E) {
+														int X = E.getX()
+																+ a.getX() - 5;
+														int Y = E.getY()
+																+ a.getY() - 5;
+														a.setBounds(X, Y, 10,
+																10);
+													}
+												});
+
+										i++;
+										countTestPoints++;
+
+									}
+								} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+
+								}
+
+							} else {
+								// ZSB_field.setText("ZSB not found!");
+
+								ZSB_field.setText("");
+
+							}
+
+							valueXSizeTestField.setText(paramPosition[2]);
+							valueYSizeTestField.setText(paramPosition[3]);
+
+							JButton okButton = new JButton("SAVE");
+
+							okButton.setBounds(10, 620, 90, 30);
+							okButton.addActionListener(new SetLayoutOkButton());
+							frame.add(okButton);
+
+							// //////////////////Run the test program
+							// code//////////////////////////////////////////////////
+						} else {
+
+							File pathToDataBase = new File(pathToZSB);
+
+							listProgramsName = pathToDataBase.list();
+							// System.out.println(listProgramsName[0]);
+							for (int x = 0; x < listProgramsName.length; x++) {
+
+								// if
+								// (listProgramsName[x].equals(ZSB_field.getText()))
+								if (listProgramsName[x].equals(ZSB_field
+										.getText())) {
+									// isZSB_exist = true;
+
+									pathToORDfile = pathToZSB
+											+ listProgramsName[x];
+									scanZSBFrame.setVisible(false);
+
+									// Initialising a button for setting of
+									// layout
+
+									FileReader readORD = null;
+									File file_ORD = new File(pathToORDfile);
+									try {
+										readORD = new FileReader(file_ORD);
+									} catch (FileNotFoundException e2) {
+										// TODO Auto-generated catch block
+										e2.printStackTrace();
+									}
+
+									BufferedReader readOrdBuf = new BufferedReader(
+											readORD);
+									String lengthORD;
+
+									int lengthORD_Value = 0;
+									try {
+										while ((lengthORD = readOrdBuf
+												.readLine()) != null) {
+											lengthORD_Value++;
+
+										}
+									} catch (IOException e2) {
+										// TODO Auto-generated catch block
+										e2.printStackTrace();
+									}
+									array_ORD = new String[lengthORD_Value];
+									String x1 = null;
+									int c = 0;
+
+									// Prisvoqvane ma ORD faila na masiv
+									FileReader readORDForArray = null;
+									try {
+										readORDForArray = new FileReader(
+												file_ORD);
+									} catch (FileNotFoundException e3) {
+										// TODO Auto-generated catch block
+										e3.printStackTrace();
+									}
+
+									BufferedReader readBufForArray = new BufferedReader(
+											readORDForArray);
+									builderORD = new StringBuilder();
+									try {
+										while ((x1 = readBufForArray.readLine()) != null) {
+
+											builderORD.append(x1 + "\n");
+											array_ORD[c] = x1;
+
+											c++;
+										}
+									} catch (IOException e2) {
+										// TODO Auto-generated catch block
+										e2.printStackTrace();
+									}
+
+									// ////////////////////////////RABOTA S
+									// MASIVA NA ORD
+									// FILE/////////////////////////
+
+									String y = String.valueOf(builderORD);
+									String[] spl = y.split("Vb:");
+
+									// System.out.println(spl[1]);
+
+									for (int i = 0; i < spl.length; i++) {
+
+										// System.out.println();
+
+									}
+
+									JFrame frame = new JFrame();
+
+									frame = new JFrame("MoKo");
+									frame.setLayout(null);
+									frame.setSize(1024, 768);
+									frame.setResizable(false);
+									frame.setLocationRelativeTo(null);
+									frame
+											.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+
+									frame.setContentPane(new JLabel(
+											new ImageIcon(
+													"C:\\MoKo\\DSC_0224.JPG")));
+
+									frame.setVisible(true);
+									File testPointsFile = new File(
+											"C://MoKo//POINTS_NUMBER.txt");
+
+									// boolean isExist =
+									// testPointsFile.isFile();
+									// System.out.println(isExist);
+									FileReader readtestPointsFile = null;
+									try {
+										readtestPointsFile = new FileReader(
+												testPointsFile);
+									} catch (FileNotFoundException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									BufferedReader bufReadtestPointsFile = new BufferedReader(
+											readtestPointsFile);
+
+									int counterLengthTestPointsFile = 0;
+									// Take's the length of POINTS_NUMBER file
+									// for initialization of
+									// String[] arrayTestPoints;
+
+									String tempLength;
+									try {
+										while ((tempLength = bufReadtestPointsFile
+												.readLine()) != null) {
+
+											counterLengthTestPointsFile++;
+										}
+									} catch (IOException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+
+									}
+
+									FileReader readtestPointsFileA = null;
+									try {
+										readtestPointsFileA = new FileReader(
+												testPointsFile);
+									} catch (FileNotFoundException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+
+									BufferedReader bufReadtestPointsFileA = new BufferedReader(
+											readtestPointsFileA);
+
+									int countTestPoints = 0;
+									String temp;
+
+									arrayTestPoints = new StringBuilder();
+									// testFields = new
+									// JTextField[counterLengthTestPointsFile];
+
+									int countForSubstringPos = 0;
+
+									// In this cycle is the basic program logic
+									// of this program.
+
+									try {
+										while ((temp = bufReadtestPointsFileA
+												.readLine()) != null) {
+											arrayTestPoints.append(temp);
+											countForSubstringPos++;
+
+											// System.out.println(countForSubstringPos);
+
+											String addNum = null;
+
+											if (countForSubstringPos < 10) {
+												addNum = "00";
+											} else {
+												if (countForSubstringPos < 100) {
+													addNum = "0";
+												} else {
+													addNum = "";
+												}
+											}
+
+											// System.out.println("<Point" +
+											// addNum + countForSubstringPos
+											// + ">");
+											int tempStartInt = arrayTestPoints
+													.indexOf("<Point"
+															+ addNum
+															+ countForSubstringPos
+															+ ">") + 10;
+
+											// System.out.println(tempStartInt);
+
+											int tempEndInt = arrayTestPoints
+													.indexOf("</Point"
+															+ addNum
+															+ countForSubstringPos
+															+ ">");
+
+											// System.out.println(tempEndInt);
+
+											String positionParam = arrayTestPoints
+													.substring(tempStartInt,
+															tempEndInt);
+											// System.out.println(positionParam
+											// );
+											String[] paramPosition = positionParam
+													.split(",");
+
+											// //////////////////////preravqne
+											// na masiva na ORD file za
+											// vzemane
+											// ///////////////////// na
+											// stoinosti za inicializacia na
+											// cveta
+											// na poletata
+
+											// System.out.println(paramPosition[0]);
+											testFieldsA = new JTextField();
+
+											int x1ValueNum = 0;
+											int x2ValueNum = 0;
+
+											for (int i = 0; i < spl.length; i++) {
+
+												if (spl[i]
+														.contains("X1:SG_MOT1")) {
+													int subStartX1 = spl[i]
+															.indexOf("T1:") + 3;
+													int subEndX1 = spl[i]
+															.indexOf("T2:");
+													// System.out.println(subStartX1);
+													// System.out.println(subEndX1);
+
+													String x1Value = spl[i]
+															.substring(
+																	subStartX1,
+																	subEndX1)
+															.trim();
+													x1ValueNum = Integer
+															.valueOf(x1Value);
+													// System.out.println("for X1="
+													// + x1Value);
+
+												}
+
+												if (spl[i]
+														.contains("X2:SG_MOT1")) {
+													int subStartX2 = spl[i]
+															.indexOf("T2:") + 3;
+													int subEndX2 = spl[i]
+															.indexOf("X1:");
+													// System.out.println(subStartX2);
+													// System.out.println(subEndX2);
+
+													String x2Value = spl[i]
+															.substring(
+																	subStartX2,
+																	subEndX2)
+															.trim();
+													x2ValueNum = Integer
+															.valueOf(x2Value);
+
+													// System.out.println("forX2="
+													// + x2Value);
+
+												}
+												if ((countForSubstringPos == x1ValueNum)
+														|| (countForSubstringPos == x2ValueNum)) {
+
+													frame.add(testFieldsA);
+
+													testFieldsA
+															.setVisible(true);
+													testFieldsA
+															.setText(String
+																	.valueOf(countForSubstringPos));
+													testFieldsA
+															.setBackground(Color.green);
+													testFieldsA
+															.setFont(new Font(
+																	"SansSerif",
+																	Font.BOLD,
+																	6));
+													testFieldsA
+															.setEditable(false);
+													testFieldsA
+															.setBounds(
+																	Integer
+																			.valueOf(paramPosition[0]),
+																	Integer
+																			.valueOf(paramPosition[1]),
+																	Integer
+																			.valueOf(paramPosition[2]),
+																	Integer
+																			.valueOf(paramPosition[3]));
+
+												}
+
+											}
+
+											countTestPoints++;
+										}
+									} catch (IOException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+
+									}
+									// System.out.println(arrayTestPoints[0]);
+
+								} else {
+									// ZSB_field.setText("ZSB not found!");
+
+									ZSB_field.setText("");
+
+								}
+
+							}
+						}
+					}
+				});
+
+	}
+
+
+	public static class SetLayoutOkButton implements ActionListener {
+		
+		
+		
+		JTextField d = 	new JTextField();
+		
+		BufferedWriter out = null;
+
+		public void actionPerformed(ActionEvent e) {
+			try {
+				out = new BufferedWriter(new FileWriter(
+						"C://MoKo//POINTS_NUMBER.txt"));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			String numCorrection = null;
+			int counterForOutputStream = 1;
+			for (int x = 0; x < testFields.length; x++) {
+
+				int xPos = testFields[x].getX();
+				int yPos = testFields[x].getY();
+
+				if (counterForOutputStream < 10) {
+					numCorrection = "00";
+				} else {
+					if (counterForOutputStream < 100) {
+						numCorrection = "0";
+					} else {
+						numCorrection = "";
+					}
+				}
+				try {
+
+					out.write("<Point" + numCorrection + ""
+							+ counterForOutputStream + ">" + xPos + "," + yPos
+							+ ",12,12</Point" + numCorrection + ""
+							+ counterForOutputStream + ">");
+					out.write(newLine);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+				counterForOutputStream++;
+				//testFields[x].setVisible(false);
+				// writeToFile(testFields[x].getY()+","+testFields[x].getX()) ;
+			}
+			// System.out.println(testFields.length);
+			try {
+				out.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		
+
+		}
+
+	}
+
+	private synchronized static void writeToFile(String string) {
+
+		// Zapisva statistika v C:\
+
+		String fileName = "C://MoKo//POINTS_NUMBER.txt";
+		Writer printWriter = null;
+		File file = new File(fileName);
+		try {
+			if (!file.exists())
+				file.createNewFile();
+			printWriter = new PrintWriter(new FileOutputStream(fileName, true));
+			printWriter.write(newLine + string);
+		} catch (IOException ioex) {
+			ioex.printStackTrace();
+		} finally {
+			if (printWriter != null) {
+				try {
+					printWriter.flush();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					printWriter.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+
+		Test a = new Test();
+
+		a.Logic();
+
+	}
+
+}
