@@ -25,45 +25,35 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.RootPaneContainer;
 
+//hello GitHub
 public class Test extends ScanZsbFrameAndLogic {
-	static JPanel[] testPanels;
-	static Color bgColor;
-	static StringBuilder arrayTestPoints, builderORD,
-			arrayTestPointsForSetLayout;
-	static JTextField[] testFields, fieldsForSetSize;
-	static String[] array_ORD;
+
 	static final String newLine = System.getProperty("line.separator");
 
-	static JTextField testFieldsA, valueXSizeTestField, valueYSizeTestField,
-			testFieldsTextSize;
-
-	static JButton settingButton, testFieldForegroundColorButtonSet,
-			testFieldBackgroundColorButtonSet;
 	static int i = 0;
 	// Variable for set the size of number in Test Fields;
-	static int sizeNum = 9;
-	static JFrame setLayoutFrame, frame;
+
+	static JFrame frame;
 	static OutputStream outputStream;
-	static String[] paramPosition;
+
 	static File[] listProgramsName;
 	static File pathToDataBase;
 	static boolean isFolderFound = false;
-	static JButton resetButton;
+
 	static String zsbScanValue;
 	// Variables which consist the color for TestFields
-	static ImageIcon firstImg, secondImg;
-	static Color Color_FOREGROUND_CONVERTEDa, Color_BACKGROUND_CONVERTEDa;
-	static String temp, allColors, firstColor, secondColor;
 
 	static int repeatedRowsLength, finishCounter = 0;
 	static JTextField errorLabel, scanETK_errField;
+	static JTextArea field_ZSB, includedVariantsArea;
 	static String[] zsbScanValueSplitted;
-	// static instantionTestFields;
-
-	// Write statistic
+	static String textZSB;
+	static JPanel picturePanel;
 
 	private static final long serialVersionUID = 1L;
 
@@ -112,6 +102,7 @@ public class Test extends ScanZsbFrameAndLogic {
 						// get zsb number from ZSB_field
 						// Split input to get only zsb number without
 						// extention
+						textZSB = ZSB_field.getText();
 						zsbScanValueSplitted = ZSB_field.getText().split("\\.");
 
 						if (zsbScanValueSplitted[0].length() != zsbLength) {
@@ -213,6 +204,64 @@ public class Test extends ScanZsbFrameAndLogic {
 										frame
 												.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+										frame.setContentPane(new JLabel(
+														new ImageIcon(
+																"C:\\SPLICES_KSK\\Icons\\frame.jpg")));
+
+										// add cable picture to the frame
+
+										picturePanel = new JPanel();
+										picturePanel.setBounds(400, 100, 600,
+												400);
+										frame.add(picturePanel);
+
+										
+										field_ZSB = new JTextArea();
+										field_ZSB.setBounds(290, 15, 600, 50);
+										field_ZSB.setFont(new Font(
+												"Sanse Serif",
+												Font.CENTER_BASELINE, 45));
+										field_ZSB.setOpaque(false);
+										field_ZSB.setText("ZSB=" + textZSB);
+										frame.add(field_ZSB);
+
+										includedVariantsArea = new JTextArea();
+
+										includedVariantsArea.setBounds(20, 120,
+												310, 385);
+										includedVariantsArea.setFont(new Font(
+												"Sanse Serif",
+												Font.CENTER_BASELINE, 35));
+										includedVariantsArea.setOpaque(false);
+										includedVariantsArea.setEditable(false);
+										frame.add(includedVariantsArea);
+
+										JTextArea labelIncludedVariantsArea = new JTextArea(
+												"”◊¿—“¬¿Ÿ»  ¿¡≈À»");
+										labelIncludedVariantsArea.setBounds(20,
+												70, 310, 40);
+										labelIncludedVariantsArea
+												.setFont(new Font(
+														"Sanse Serif",
+														Font.CENTER_BASELINE,
+														25));
+										labelIncludedVariantsArea
+												.setOpaque(false);
+										labelIncludedVariantsArea
+												.setEditable(false);
+										frame.add(labelIncludedVariantsArea);
+
+										JTextArea pathToZSBlabel = new JTextArea(
+												"œ˙Ú Í˙Ï .ETK Ù‡ÈÎ: "
+														+ pathToETKfile);
+										pathToZSBlabel.setBounds(0, 0, 800, 30);
+										pathToZSBlabel.setFont(new Font(
+												"Sanse Serif",
+												Font.CENTER_BASELINE, 18));
+										pathToZSBlabel.setOpaque(false);
+										pathToZSBlabel.setEditable(false);
+										frame.add(pathToZSBlabel);
+
 										BufferedReader readOrdBuf = new BufferedReader(
 												readETK);
 										String lengthETK;
@@ -224,19 +273,19 @@ public class Test extends ScanZsbFrameAndLogic {
 											while ((lengthETK = readOrdBuf
 													.readLine()) != null) {
 												ETK_File_array
-														.append(lengthETK)
-														.trimToSize();
+														.append(lengthETK);
 
 											}
 										} catch (IOException e2) {
 											// TODO Auto-generated catch block
 											e2.printStackTrace();
 										}
+										// System.out.println(ETK_File_array);
 										String toString_ETK = String
 												.valueOf(ETK_File_array);
 										String[] splittedETK_array = toString_ETK
 												.split("Mn:");
-
+										// System.out.println(Arrays.toString(splittedETK_array));
 										int counterRepeadedRows = 0;
 										for (int i = 0; i < arrayDataBaseRows.length; i++) {
 
@@ -275,7 +324,7 @@ public class Test extends ScanZsbFrameAndLogic {
 										final String[][] finalRepeatedRows = new String[counterRepeadedRows][2];
 
 										int counterRepeadedRowsFilnal = 0;
-										for (int i = 0; i < arrayDataBaseRows.length - 1; i++) {
+										for (int i = 0; i < arrayDataBaseRows.length; i++) {
 
 											for (int j = 0; j < splittedETK_array.length; j++) {
 
@@ -296,7 +345,7 @@ public class Test extends ScanZsbFrameAndLogic {
 										}
 										// get all repeated rows + match codes
 										counterRepeadedRowsFilnal = 0;
-										for (int i = 0; i < arrayDataBaseRows.length - 1; i++) {
+										for (int i = 0; i < arrayDataBaseRows.length; i++) {
 
 											for (int j = 0; j < finalRepeatedRows.length; j++) {
 
@@ -306,7 +355,7 @@ public class Test extends ScanZsbFrameAndLogic {
 																finalRepeatedRows[j][0])) {
 
 													finalRepeatedRows[counterRepeadedRowsFilnal][1] = arrayDataBaseRows[i][1];
-
+													// System.out.println(finalRepeatedRows[counterRepeadedRowsFilnal][0]);
 													counterRepeadedRowsFilnal++;
 												}
 
@@ -321,54 +370,99 @@ public class Test extends ScanZsbFrameAndLogic {
 											// TODO Auto-generated catch block
 											e1.printStackTrace();
 										}
-										scanETK_Frame = new JFrame(
-												"Please scan Tile number!");
 
-										scanETK_Frame
-												.setContentPane(new JLabel(
-														new ImageIcon(
-																"C:\\MoKo\\SZB_Frame.png")));
-										scanETK_Frame
-												.setContentPane(new JLabel(
-														new ImageIcon(
-																"C:\\SPLICES_KSK\\Icons\\scanZSBFramePic.png")));
+										// add all included variant to
+										// includedVariantsArea
 
-										scanETK_Frame.setBounds(200, 420, 900,
-												550);
+										for (int i = 0; i < finalRepeatedRows.length; i++) {
 
-										scanETK_Frame
-												.setDefaultCloseOperation(scanZSBFrame.EXIT_ON_CLOSE);
+											includedVariantsArea
+													.append(finalRepeatedRows[i][1]);
+											includedVariantsArea.append("\n");
+											if (((i + 1) > 8)
+													&& ((i + 1) <= 12)) {
 
-										scanETK_Frame.setAlwaysOnTop(true);
+												includedVariantsArea
+														.setFont(new Font(
+																"Sanse Serif",
+																Font.CENTER_BASELINE,
+																(24)));
+											} else if (((i + 1) > 12)
+													&& ((i + 1) <= 20)) {
 
-										scanETK_Frame.setResizable(false);
+												includedVariantsArea
+														.setFont(new Font(
+																"Sanse Serif",
+																Font.CENTER_BASELINE,
+																(14)));
+											} else if (((i + 1) > 20)
+													&& ((i + 1) <= 25)) {
+
+												includedVariantsArea
+														.setFont(new Font(
+																"Sanse Serif",
+																Font.CENTER_BASELINE,
+																(11)));
+											} else if ((i + 1) > 25
+													&& ((i + 1) <= 30)) {
+
+												includedVariantsArea
+														.setFont(new Font(
+																"Sanse Serif",
+																Font.CENTER_BASELINE,
+																(9)));
+
+											} else {
+												if ((i + 1) > 30) {
+													includedVariantsArea
+															.append("œÂÍ‡ÎÂÌÓ ÏÌÓ„Ó ‚‡Ë‡ÌÚË Á‡ ÔÓÍ‡Á‚‡ÌÂ");
+
+												}
+											}
+										}
 
 										ETK_field = new JTextField();
 										ETK_field.setVisible(true);
-										scanETK_Frame.add(ETK_field);
+
 										ETK_field.setFont(new Font("SansSerif",
 												Font.BOLD, 90));
 
-										ETK_field.setBounds(10, 280, 870, 180);
+										ETK_field.setBounds(120, 520, 780, 120);
 										ETK_field.setEditable(true);
 
 										// System.out.println(ETK_File_array);
+										// add first picture to the panel
+										String pathToPic = "C:\\SPLICES_KSK\\CABLES_PICTURES\\"
+												+ finalRepeatedRows[0][0]
+												+ ".jpg";
+				ImageIcon imageIcon	= new ImageIcon(pathToPic);			
+					Image originalImage = imageIcon.getImage();
+				
+				
+				Image scaledImage = originalImage.getScaledInstance(picturePanel.getWidth(),picturePanel.getHeight(),Image.SCALE_SMOOTH);
+				JLabel tempPicLabel = new JLabel(
+						new ImageIcon(scaledImage));
+				
+	//pictures									
+////////////////////////////////////////////////////////////////////////////////////////////////////
+										picturePanel.add(tempPicLabel);
 
-										scanETK_Frame.setVisible(true);
 										final JTextField scanETK_FieldInfo = new JTextField(
 												"—Í‡ÌË‡È:"
 														+ finalRepeatedRows[0][1]);
-										scanETK_Frame.add(scanETK_FieldInfo);
+										frame.add(scanETK_FieldInfo);
 										scanETK_FieldInfo.setFont(new Font(
 												"SansSerif", Font.BOLD, 60));
-										scanETK_FieldInfo.setBounds(10, 50,
-												870, 130);
+										scanETK_FieldInfo.setBounds(20, 670,
+												980, 70);
 										scanETK_FieldInfo.setEditable(false);
 
 										scanETK_FieldInfo.requestFocus();
 
+										frame.setVisible(true);
+										frame.add(ETK_field);
 										ETK_field.requestFocus(true);
-										scanETK_Frame
+										frame
 												.getRootPane()
 												.getInputMap(
 														JComponent.WHEN_IN_FOCUSED_WINDOW)
@@ -378,127 +472,137 @@ public class Test extends ScanZsbFrameAndLogic {
 																		KeyEvent.VK_ENTER,
 																		0),
 														"clickButton");
-										scanETK_Frame.getRootPane()
-												.getActionMap().put(
-														"clickButton",
-														new AbstractAction() {
+										frame.getRootPane().getActionMap().put(
+												"clickButton",
+												new AbstractAction() {
 
-															@Override
-															public void actionPerformed(
-																	ActionEvent arg0) {
+													@Override
+													public void actionPerformed(
+															ActionEvent arg0) {
+
+														ETK_field
+																.requestFocus(true);
+														for (int i = 0; i < finalRepeatedRows.length; i++) {
+
+															scanETK_FieldInfo
+																	.setText("—Í‡ÌË‡È:"
+																			+ finalRepeatedRows[finishCounter][1]);
+													
+					
+															if (ETK_field
+																	.getText()
+																	.equals(
+																			finalRepeatedRows[finishCounter][1])) {
+																
+																/**
+																 * add picture to the panel 
+																 */
+																		picturePanel = new JPanel();
+																		picturePanel.setBounds(400, 100, 600,
+																				400);
+																		frame.add(picturePanel);
+																		
+																		picturePanel.revalidate();
+																		
+																		if(finishCounter < finalRepeatedRows.length - 1 ){
+																			
+																		String pathToPicA = "C:\\SPLICES_KSK\\CABLES_PICTURES\\"
+																			+ finalRepeatedRows[finishCounter+1][0]
+																			+ ".jpg";
+																		
+																		//System.out.println(pathToPicA);
+																		
+											ImageIcon imageIcon	= new ImageIcon(pathToPicA);			
+												Image originalImage = imageIcon.getImage();
+											
+											
+											Image scaledImage = originalImage.getScaledInstance(picturePanel.getWidth(),picturePanel.getHeight(),Image.SCALE_SMOOTH);
+											JLabel tempPicLabel = new JLabel(
+													new ImageIcon(scaledImage));
+											
+											
+								//pictures									
+							////////////////////////////////////////////////////////////////////////////////////////////////////
+											
+																	picturePanel.add(tempPicLabel);
+																	picturePanel.setVisible(true);
+			frame.setVisible(true);										
+																								
+																
+																System.out.println(pathToPicA);
+															}
+																		
+																		
+																ETK_field
+																		.setText("");
+
+																finishCounter++;
 
 																ETK_field
 																		.requestFocus(true);
-																for (int i = 0; i < finalRepeatedRows.length; i++) {
 
-																	scanETK_FieldInfo
-																			.setText("—Í‡ÌË‡È:"
-																					+ finalRepeatedRows[finishCounter][1]);
+																if (finishCounter == finalRepeatedRows.length) {
+																	// Aktualna
+																	// data
+																	// i
+																	// 4as
 
-																	if (ETK_field
-																			.getText()
-																			.equals(
-																					finalRepeatedRows[finishCounter][1])) {
+																	Date date = new Date();
 
+																	SimpleDateFormat format = new SimpleDateFormat(
+																			"dd.MM.yyyy  HH:mm");
+
+																	String DateToStr = format
+																			.format(date);
+
+																	// zapisva
+																	// statistika
+
+																	writeToFile(DateToStr
+																			+ " | "
+																			+ zsbScanValueSplitted[0]
+																			+ " | "
+																			+ "Included cabels:"
+																			+ (Arrays
+																					.deepToString(finalRepeatedRows)));
+
+																	try {
+
+																		Thread
+																				.sleep(2000);
 																		frame
-																				.setVisible(true);
-
-																		ETK_field
-
-																				.setText("");
-
-																		JLabel labelOk = new JLabel(
-																				"OK");
-																		labelOk
-																				.setFont(new Font(
-																						"Sanse Serif",
-																						Font.CENTER_BASELINE,
-																						350));
-
-																		labelOk
-																				.setBounds(
-																						100,
-																						100,
-																						100,
-																						100);
-																		JPanel okPanel = new JPanel();
-
-																		okPanel
-																				.add(labelOk);
-																		frame
-																				.setContentPane(okPanel);
-																		okPanel
-																				.setBackground(Color.green);
-
-																		finishCounter++;
-
-																		ETK_field
-																				.requestFocus(true);
-
-																		if (finishCounter == finalRepeatedRows.length) {
-																			// Aktualna
-																			// data
-																			// i
-																			// 4as
-
-																			Date date = new Date();
-
-																			SimpleDateFormat format = new SimpleDateFormat(
-																					"dd.MM.yyyy  HH:mm");
-
-																			String DateToStr = format
-																					.format(date);
-
-																			// zapisva
-																			// statistika
-
-																			writeToFile(DateToStr
-																					+ " | "
-																					+ zsbScanValueSplitted[0]
-																					+ " | "
-																					+ "Included cabels:"
-																					+ (Arrays
-																							.toString(finalRepeatedRows[0])));
-																			scanETK_Frame
-																					.setVisible(false);
-
-																			try {
-
-																				Thread
-																						.sleep(2000);
-																				frame
-																						.setVisible(false);
-																				Test
-																						.Logic();
-																				finishCounter = 0;
-																				break;
-																			} catch (InterruptedException e) {
-																				// TODO
-																				// Auto-generated
-																				// catch
-																				// block
-																				e
-																						.printStackTrace();
-																			}
-
-																		}
-
-																	} else {
-																		// scanETK_errField.setText("— ¿Õ»–¿À» —“≈ √–≈ÿ≈Õ ≈“» ≈“!");
-																		ETK_field
-																				.setText("— ¿Õ»–¿À» —“≈ √–≈ÿ≈Õ ≈“» ≈“!");
-
-																		ETK_field
-																				.setText("");
-
+																				.setVisible(false);
+																		Test
+																				.Logic();
+																		finishCounter = 0;
+																		break;
+																	} catch (InterruptedException e) {
+																		// TODO
+																		// Auto-generated
+																		// catch
+																		// block
+																		e
+																				.printStackTrace();
 																	}
 
 																}
 
+															} else {
+																// scanETK_errField.setText("— ¿Õ»–¿À» —“≈ √–≈ÿ≈Õ ≈“» ≈“!");
+																ETK_field
+																		.setText("— ¿Õ»–¿À» —“≈ √–≈ÿ≈Õ ≈“» ≈“!");
+
+																ETK_field
+																		.setText("");
+
 															}
+
 														}
 
-												);
+													}
+												}
+
+										);
 
 									} else {
 										// Show error if zsb is not found
@@ -534,87 +638,7 @@ public class Test extends ScanZsbFrameAndLogic {
 		Test aA = new Test();
 
 		aA.Logic();
-		
 
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

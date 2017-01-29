@@ -37,7 +37,7 @@ public class ScanZsbFrameAndLogic {
 	static String[][] arrayDataBaseRows;
 	static int zsbLength;
 	static JTextField zsbNotFoundLabel;
-	static JFrame scanETK_Frame;
+	
 
 	public void RunScanSZbWindow() {
 
@@ -61,7 +61,7 @@ public class ScanZsbFrameAndLogic {
 
 		JLabel scanZSBFrameLabel = new JLabel("— ¿Õ»–¿… ZSB ≈“» ≈“!");
 		scanZSBFrame.add(scanZSBFrameLabel);
-		scanZSBFrameLabel.setForeground(Color.blue);
+		
 		scanZSBFrameLabel.setFont(new Font("SansSerif", Font.BOLD, 70));
 		scanZSBFrameLabel.setBounds(20, 30, 900, 90);
 
