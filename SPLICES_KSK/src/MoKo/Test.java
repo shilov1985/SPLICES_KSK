@@ -479,19 +479,17 @@ public class Test extends ScanZsbFrameAndLogic {
 													@Override
 													public void actionPerformed(
 															ActionEvent arg0) {
-
+														ETK_field.setBackground(Color.red);
 														ETK_field
 																.requestFocus(true);
 														for (int i = 0; i < finalRepeatedRows.length; i++) {
-
+															
 															scanETK_FieldInfo
 																	.setText("Ñêàíèðàé:"
 																			+ finalRepeatedRows[finishCounter][1]);
 													
 					
-															if (ETK_field
-																	.getText()
-																	.equals(
+															if (ETK_field.getText().equals(
 																			finalRepeatedRows[finishCounter][1])) {
 																
 																/**
@@ -532,7 +530,7 @@ public class Test extends ScanZsbFrameAndLogic {
 																System.out.println(pathToPicA);
 															}
 																		
-																		
+																		ETK_field.setBackground(Color.green);		
 																ETK_field
 																		.setText("");
 
@@ -563,37 +561,27 @@ public class Test extends ScanZsbFrameAndLogic {
 																			+ zsbScanValueSplitted[0]
 																			+ " | "
 																			+ "Included cabels:"
-																			+ (Arrays
-																					.deepToString(finalRepeatedRows)));
+																			+ (Arrays.deepToString(finalRepeatedRows)));
 
-																	try {
-
-																		Thread
-																				.sleep(2000);
-																		frame
-																				.setVisible(false);
-																		Test
-																				.Logic();
+												
+																		frame.setVisible(false);
+																		Test.Logic();
 																		finishCounter = 0;
 																		break;
-																	} catch (InterruptedException e) {
+																	
 																		// TODO
 																		// Auto-generated
 																		// catch
 																		// block
-																		e
-																				.printStackTrace();
-																	}
+																	
 
 																}
 
 															} else {
 																// scanETK_errField.setText("ÑÊÀÍÈÐÀËÈ ÑÒÅ ÃÐÅØÅÍ ÅÒÈÊÅÒ!");
-																ETK_field
-																		.setText("ÑÊÀÍÈÐÀËÈ ÑÒÅ ÃÐÅØÅÍ ÅÒÈÊÅÒ!");
-
-																ETK_field
-																		.setText("");
+														
+																//ETK_field.setBackground(Color.red);
+																ETK_field.setText("");
 
 															}
 
