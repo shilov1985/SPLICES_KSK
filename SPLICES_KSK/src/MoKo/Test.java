@@ -35,7 +35,7 @@ public class Test extends ScanZsbFrameAndLogic {
 
 	static final String newLine = System.getProperty("line.separator");
 
-	static int i = 0;
+	
 	// Variable for set the size of number in Test Fields;
 
 	static JFrame frame;
@@ -49,7 +49,7 @@ public class Test extends ScanZsbFrameAndLogic {
 	// Variables which consist the color for TestFields
 
 	static int repeatedRowsLength, finishCounter = 0;
-	static JTextField errorLabel, scanETK_errField;
+	static JTextField errorLabel;
 	static JTextArea field_ZSB, includedVariantsArea;
 	static String[] zsbScanValueSplitted;
 	static String textZSB;
@@ -112,11 +112,11 @@ public class Test extends ScanZsbFrameAndLogic {
 
 							// here we format the input for searching of .ORD or
 							// .PRG program,it does not matter,
-							// and if is needed we format that input with the
-							// values substringned from
+							// and if is needed we format that input by the
+							// values substring from
 							// the MoKo.ini file between <FORMAT_ZSB_INPUT> and
 							// </FORMAT_ZSB_INPUT>
-							// add an extention of specified file.For example if
+							// add an extension of specified file.For example if
 							// we search for .prg files we takes the extension
 							// from MoKo.ini file and append it to the end of
 							// the number from ZSB_field.
@@ -148,8 +148,7 @@ public class Test extends ScanZsbFrameAndLogic {
 									pathToDataBase = new File(pathToZSB + "\\"
 											+ file.getName());
 
-									listProgramsName = pathToDataBase
-											.listFiles();
+									listProgramsName = pathToDataBase.listFiles();
 
 									// if found folder we proceed far away
 									// Is it means that,we found the searched
@@ -167,9 +166,9 @@ public class Test extends ScanZsbFrameAndLogic {
 								isFolderFound = false;
 								for (int x = 0; x < listProgramsName.length; x++) {
 
-									// if files with properly name has founded
-									// proceed far away
-									//
+									// if files with properly name has been founded
+									// proceed further
+									
 
 									if (listProgramsName[x].getName().equals(
 											zsbScanValue)
@@ -201,26 +200,23 @@ public class Test extends ScanZsbFrameAndLogic {
 										frame.setSize(H_Size, V_Size);
 										frame.setResizable(false);
 										frame.setLocationRelativeTo(null);
-										frame
-												.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-										frame.setContentPane(new JLabel(
-														new ImageIcon(
-																"C:\\SPLICES_KSK\\Icons\\frame.jpg")));
+										frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                                        frame.setContentPane(new JLabel(
+										     new ImageIcon(
+												"C:\\SPLICES_KSK\\Icons\\frame.jpg")));
 
 										// add cable picture to the frame
 
 										picturePanel = new JPanel();
-										picturePanel.setBounds(400, 100, 600,
-												400);
+										picturePanel.setBounds(400, 100, 600,400);
 										frame.add(picturePanel);
 
 										
 										field_ZSB = new JTextArea();
 										field_ZSB.setBounds(290, 15, 600, 50);
-										field_ZSB.setFont(new Font(
-												"Sanse Serif",
+										field_ZSB.setFont(new Font("Sanse Serif",
 												Font.CENTER_BASELINE, 45));
+										
 										field_ZSB.setOpaque(false);
 										field_ZSB.setText("ZSB=" + textZSB);
 										frame.add(field_ZSB);
@@ -229,41 +225,35 @@ public class Test extends ScanZsbFrameAndLogic {
 
 										includedVariantsArea.setBounds(20, 120,
 												310, 385);
-										includedVariantsArea.setFont(new Font(
-												"Sanse Serif",
+										
+										includedVariantsArea.setFont(new Font("Sanse Serif",
 												Font.CENTER_BASELINE, 35));
+										
 										includedVariantsArea.setOpaque(false);
 										includedVariantsArea.setEditable(false);
 										frame.add(includedVariantsArea);
 
-										JTextArea labelIncludedVariantsArea = new JTextArea(
-												"Ó×ÀÑÒÂÀÙÈ ÊÀÁÅËÈ");
-										labelIncludedVariantsArea.setBounds(20,
-												70, 310, 40);
-										labelIncludedVariantsArea
-												.setFont(new Font(
-														"Sanse Serif",
-														Font.CENTER_BASELINE,
-														25));
-										labelIncludedVariantsArea
-												.setOpaque(false);
-										labelIncludedVariantsArea
-												.setEditable(false);
+										JTextArea labelIncludedVariantsArea = new JTextArea("Ó×ÀÑÒÂÀÙÈ ÊÀÁÅËÈ");
+										labelIncludedVariantsArea.setBounds(20,70, 310, 40);
+										labelIncludedVariantsArea.setFont(new Font("Sanse Serif",
+														Font.CENTER_BASELINE,25));
+										
+										labelIncludedVariantsArea.setOpaque(false);
+										labelIncludedVariantsArea.setEditable(false);
 										frame.add(labelIncludedVariantsArea);
 
-										JTextArea pathToZSBlabel = new JTextArea(
-												"Ïúò êúì .ETK ôàéë: "
+										JTextArea pathToZSBlabel = new JTextArea("Ïúò êúì .ETK ôàéë: "
 														+ pathToETKfile);
+										
 										pathToZSBlabel.setBounds(0, 0, 800, 30);
-										pathToZSBlabel.setFont(new Font(
-												"Sanse Serif",
+										pathToZSBlabel.setFont(new Font("Sanse Serif",
 												Font.CENTER_BASELINE, 18));
+										
 										pathToZSBlabel.setOpaque(false);
 										pathToZSBlabel.setEditable(false);
 										frame.add(pathToZSBlabel);
 
-										BufferedReader readOrdBuf = new BufferedReader(
-												readETK);
+										BufferedReader readOrdBuf = new BufferedReader(readETK);
 										String lengthETK;
 
 										// Get the length of the ETK file on
@@ -272,8 +262,7 @@ public class Test extends ScanZsbFrameAndLogic {
 										try {
 											while ((lengthETK = readOrdBuf
 													.readLine()) != null) {
-												ETK_File_array
-														.append(lengthETK);
+												ETK_File_array.append(lengthETK);
 
 											}
 										} catch (IOException e2) {
@@ -318,7 +307,7 @@ public class Test extends ScanZsbFrameAndLogic {
 
 										}
 
-										// get second part if the rows divided
+										// get second part if the rows in data base file divided 
 										// by =
 
 										final String[][] finalRepeatedRows = new String[counterRepeadedRows][2];
@@ -424,8 +413,7 @@ public class Test extends ScanZsbFrameAndLogic {
 										ETK_field = new JTextField();
 										ETK_field.setVisible(true);
 
-										ETK_field.setFont(new Font("SansSerif",
-												Font.BOLD, 90));
+										ETK_field.setFont(new Font("SansSerif",Font.BOLD, 90));
 
 										ETK_field.setBounds(120, 520, 780, 120);
 										ETK_field.setEditable(true);
@@ -433,8 +421,8 @@ public class Test extends ScanZsbFrameAndLogic {
 										// System.out.println(ETK_File_array);
 										// add first picture to the panel
 										String pathToPic = "C:\\SPLICES_KSK\\CABLES_PICTURES\\"
-												+ finalRepeatedRows[0][0]
-												+ ".jpg";
+												+ finalRepeatedRows[0][0]+ ".jpg";
+										
 				ImageIcon imageIcon	= new ImageIcon(pathToPic);			
 					Image originalImage = imageIcon.getImage();
 				
@@ -448,13 +436,13 @@ public class Test extends ScanZsbFrameAndLogic {
 										picturePanel.add(tempPicLabel);
 
 										final JTextField scanETK_FieldInfo = new JTextField(
-												"Ñêàíèðàé:"
-														+ finalRepeatedRows[0][1]);
+												"Ñêàíèðàé:"+ finalRepeatedRows[0][1]);
+										
 										frame.add(scanETK_FieldInfo);
-										scanETK_FieldInfo.setFont(new Font(
-												"SansSerif", Font.BOLD, 60));
-										scanETK_FieldInfo.setBounds(20, 670,
-												980, 70);
+										scanETK_FieldInfo.setFont(new Font("SansSerif", Font.BOLD, 60));
+										
+										scanETK_FieldInfo.setBounds(20, 670,980, 70);
+										
 										scanETK_FieldInfo.setEditable(false);
 
 										scanETK_FieldInfo.requestFocus();
@@ -462,31 +450,24 @@ public class Test extends ScanZsbFrameAndLogic {
 										frame.setVisible(true);
 										frame.add(ETK_field);
 										ETK_field.requestFocus(true);
-										frame
-												.getRootPane()
-												.getInputMap(
-														JComponent.WHEN_IN_FOCUSED_WINDOW)
-												.put(
-														KeyStroke
-																.getKeyStroke(
-																		KeyEvent.VK_ENTER,
-																		0),
-														"clickButton");
-										frame.getRootPane().getActionMap().put(
-												"clickButton",
+										
+										frame.getRootPane().getInputMap(
+											JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+												KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0),"clickButton");
+										
+										frame.getRootPane().getActionMap().put("clickButton",
 												new AbstractAction() {
 
 													@Override
 													public void actionPerformed(
 															ActionEvent arg0) {
 														ETK_field.setBackground(Color.red);
-														ETK_field
-																.requestFocus(true);
-														for (int i = 0; i < finalRepeatedRows.length; i++) {
+														ETK_field.requestFocus(true);
+														
+												for (int i = 0; i < finalRepeatedRows.length; i++) {
 															
-															scanETK_FieldInfo
-																	.setText("Ñêàíèðàé:"
-																			+ finalRepeatedRows[finishCounter][1]);
+													scanETK_FieldInfo.setText("Ñêàíèðàé:"
+											  		+ finalRepeatedRows[finishCounter][1]);
 													
 					
 															if (ETK_field.getText().equals(
@@ -503,41 +484,45 @@ public class Test extends ScanZsbFrameAndLogic {
 																		picturePanel.revalidate();
 																		
 																		if(finishCounter < finalRepeatedRows.length - 1 ){
-																			
+																	
 																		String pathToPicA = "C:\\SPLICES_KSK\\CABLES_PICTURES\\"
-																			+ finalRepeatedRows[finishCounter+1][0]
-																			+ ".jpg";
+																			+ finalRepeatedRows[finishCounter+1][0] + ".jpg";
+																	
 																		
 																		//System.out.println(pathToPicA);
 																		
-											ImageIcon imageIcon	= new ImageIcon(pathToPicA);			
+											ImageIcon imageIcon	= new ImageIcon(pathToPicA);
+											
+											
 												Image originalImage = imageIcon.getImage();
+												
 											
+											Image scaledImage = originalImage.getScaledInstance(picturePanel.getWidth(),
+													                          picturePanel.getHeight(),Image.SCALE_SMOOTH);
 											
-											Image scaledImage = originalImage.getScaledInstance(picturePanel.getWidth(),picturePanel.getHeight(),Image.SCALE_SMOOTH);
-											JLabel tempPicLabel = new JLabel(
-													new ImageIcon(scaledImage));
-											
+											                      JLabel tempPicLabel = new JLabel(
+													                 new ImageIcon(scaledImage));
+										
 											
 								//pictures									
 							////////////////////////////////////////////////////////////////////////////////////////////////////
 											
 																	picturePanel.add(tempPicLabel);
 																	picturePanel.setVisible(true);
-			frame.setVisible(true);										
+																	
+			                                                         frame.setVisible(true);										
 																								
 																
-																System.out.println(pathToPicA);
+																
 															}
 																		
-																		ETK_field.setBackground(Color.green);		
-																ETK_field
-																		.setText("");
+																		ETK_field.setBackground(Color.green);	
+																		
+																ETK_field.setText("");
 
 																finishCounter++;
 
-																ETK_field
-																		.requestFocus(true);
+																ETK_field.requestFocus(true);
 
 																if (finishCounter == finalRepeatedRows.length) {
 																	// Aktualna
@@ -550,8 +535,7 @@ public class Test extends ScanZsbFrameAndLogic {
 																	SimpleDateFormat format = new SimpleDateFormat(
 																			"dd.MM.yyyy  HH:mm");
 
-																	String DateToStr = format
-																			.format(date);
+																	String DateToStr = format.format(date);
 
 																	// zapisva
 																	// statistika
@@ -578,9 +562,8 @@ public class Test extends ScanZsbFrameAndLogic {
 																}
 
 															} else {
-																// scanETK_errField.setText("ÑÊÀÍÈÐÀËÈ ÑÒÅ ÃÐÅØÅÍ ÅÒÈÊÅÒ!");
 														
-																//ETK_field.setBackground(Color.red);
+																
 																ETK_field.setText("");
 
 															}
@@ -594,8 +577,8 @@ public class Test extends ScanZsbFrameAndLogic {
 
 									} else {
 										// Show error if zsb is not found
-										zsbNotFoundLabel
-												.setText("ZSB íå å îòêðèòî!");
+										zsbNotFoundLabel.setText("ZSB íå å îòêðèòî!");
+										
 										if (x == listProgramsName.length - 1) {
 											ZSB_field.setText("");
 										}

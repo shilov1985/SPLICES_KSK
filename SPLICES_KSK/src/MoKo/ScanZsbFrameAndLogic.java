@@ -22,22 +22,16 @@ public class ScanZsbFrameAndLogic {
 	static String pathToZSB;
 	static String patToDataBase;
 	static String pathToETKfile;
-	static String Color_BACKGROUND, Color_FOREGROUND, formatInputLiteral;
-	static Color Color_BACKGROUND_CONVERTED, Color_FOREGROUND_CONVERTED,
-			Color_FOREGROUND_CONVERTEDa, Color_BACKGROUND_CONVERTEDa;
+	static String formatInputLiteral;
 	static StringBuilder iniStrBuild;
-	static boolean isAdminPass, isTestPass;
 	static JLabel fileNotFound;
-	static String ScanZsbFrameAndLogic, extentionOfProgramFile,
-			formatInputZSBLiteral;
+	static String extentionOfProgramFile, formatInputZSBLiteral;
 	static int formatInputEnd, formatInputStart, formatInputZSBStart,
 			formatInputZSBEnd, H_Size, V_Size;
 	static JLabel folderNotFound, fileNotFoundLabel;
-	static String[] xCodesPicturesNfo;
 	static String[][] arrayDataBaseRows;
 	static int zsbLength;
 	static JTextField zsbNotFoundLabel;
-	
 
 	public void RunScanSZbWindow() {
 
@@ -45,6 +39,7 @@ public class ScanZsbFrameAndLogic {
 
 		scanZSBFrame.setContentPane(new JLabel(new ImageIcon(
 				"C:\\MoKo\\SZB_Frame.png")));
+
 		scanZSBFrame.setContentPane(new JLabel(new ImageIcon(
 				"C:\\SPLICES_KSK\\Icons\\scanZSBFramePic.png")));
 		scanZSBFrame.setVisible(true);
@@ -61,20 +56,19 @@ public class ScanZsbFrameAndLogic {
 
 		JLabel scanZSBFrameLabel = new JLabel("— ¿Õ»–¿… ZSB ≈“» ≈“!");
 		scanZSBFrame.add(scanZSBFrameLabel);
-		
+
 		scanZSBFrameLabel.setFont(new Font("SansSerif", Font.BOLD, 70));
 		scanZSBFrameLabel.setBounds(20, 30, 900, 90);
 
 		ZSB_field = new JTextField();
-
 		ZSB_field.setVisible(true);
 		ZSB_field.setEditable(true);
-		scanZSBFrame.add(ZSB_field);
 
 		ZSB_field.setFont(new Font("SansSerif", Font.BOLD, 110));
-
+		scanZSBFrame.add(ZSB_field);
 		ZSB_field.requestFocus();
 		ZSB_field.setBounds(10, 260, 870, 200);
+
 		// add field for show if zsb is not found
 		zsbNotFoundLabel = new JTextField();
 
@@ -175,7 +169,8 @@ public class ScanZsbFrameAndLogic {
 					formatEndZSBRead);
 
 		} catch (Exception e) {
-			ZSB_field.setText("File not found in C:\\SPLICES_KSK\\SPLICES_KSK.ini");
+			ZSB_field
+					.setText("File not found in C:\\SPLICES_KSK\\SPLICES_KSK.ini");
 			ZSB_field.setFont(new Font("SansSerif", Font.BOLD, 25));
 		}
 		String tempZSBLiteral = formatInputZSBLiteral;
@@ -205,7 +200,7 @@ public class ScanZsbFrameAndLogic {
 		int splicesEnd = iniStrBuild.indexOf("</PATH_SPLICES_DATABASE>");
 		patToDataBase = iniStrBuild.substring(splicesStart, splicesEnd);
 
-		// Get the rows from DATA BASE fail
+		// Get the rows from DATA BASE file
 
 		File dataBaseFile = new File(patToDataBase);
 
@@ -218,8 +213,8 @@ public class ScanZsbFrameAndLogic {
 			ZSB_field.setFont(new Font("SansSerif", Font.BOLD, 35));
 		}
 
-     	BufferedReader readDatabaseBuf = new BufferedReader(readData);
-		// get the length of  data base file
+		BufferedReader readDatabaseBuf = new BufferedReader(readData);
+		// get the length of data base file
 		String x = null;
 		int dataBaseLength = 0;
 		try {
@@ -281,7 +276,6 @@ public class ScanZsbFrameAndLogic {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 	}
 }
